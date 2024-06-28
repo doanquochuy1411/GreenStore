@@ -1,0 +1,162 @@
+
+th .tinh-nang{
+    width: 15px !important; 
+}
+/* .edit, .delete{
+    margin-left: 10px;
+} */
+
+
+.timKiem-them {
+    margin-bottom: 10px;
+}
+
+/* .timKiem{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+} */
+
+
+#nhan-vien, #san-pham, #khach-hang{
+    /* padding: 0; */
+    padding-bottom: 10px;
+}
+
+.input-group.mb-3.col-md-6{
+    width: 300px;
+}
+
+/* .themNhanVien{
+} */
+
+a{
+    color: #000000 !important;
+}
+
+.row > .header a{
+    color: #797979 !important;
+    height: 50px;
+    /* margin-top: -15px; */
+    line-height: 50px;
+}
+.row > .header{
+    /* background-color: #000000; */
+    /* border-bottom: #000000 solid 1px; */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.nav-link.active{
+    font-weight: 500 !important;
+    color: #157347 !important;
+    background-color: #f9f9f9 !important;
+}
+
+.container.tab-pane.active{
+    background-color: #f9f9f9 !important;
+}
+
+form > button.btnCus.btn2{
+    border: none;
+    background: none;
+}
+
+form > button.btnCus.btn2.delete{
+    color: red !important;
+}
+
+
+/*  */
+/* Tùy chỉnh màu sắc cho các phần */
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #9ecb9e; /* Màu nền chính của trang web là xanh lá cây */
+}
+header {
+    background-color: #f2f2f2; /* Màu xanh lá cây đậm cho header */
+    color: #fff; /* Màu chữ trắng trong header */
+    padding: 10px;
+}
+footer {
+    background-color: #005000; /* Màu xanh lá cây đậm cho footer */
+    color: #fff; /* Màu chữ trắng trong footer */
+    padding: 10px;
+}
+main {
+    background-color: #fff; /* Màu nền trắng cho main content */
+    padding: 20px;
+}
+.search-container {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 5px;
+}
+.search-container input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.search-container button {
+    background-color: #005000;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.search-container button:hover {
+    background-color: #008000;
+}
+
+/* Định dạng menu ngang trong header */
+.header-menu {
+    list-style-type: none;
+    padding: 0;
+}
+.header-menu li {
+    display: inline;
+    margin-right: 15px;
+}
+
+/* Định dạng thông tin trong footer */
+.footer-info {
+    list-style-type: none;
+    padding: 0;
+}
+.footer-info li {
+    margin-bottom: 10px;
+}
+.footer-info img {
+    max-width: 100px;
+}
+
+/* Định dạng bảng trong phần main */
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.main-table th, .main-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+
+}
+.main-table th {
+    background-color: #f2f2f2; /* Màu cho tiêu đề cột */
+    color: #171717; /* Màu chữ trắng trong tiêu đề cột */
+}
+
+a{
+    text-decoration: none;
+}
