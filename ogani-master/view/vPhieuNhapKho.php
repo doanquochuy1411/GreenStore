@@ -1,4 +1,3 @@
-
 <?php
     include_once("controller/cPhieuNhapKho.php");
     class VPhieuNhapKho{
@@ -43,10 +42,10 @@
                     <div class="row timKiem-them">
                         <div class="timKiem input-group mb-3 col-md-5">
                             <form action="indexQLKH.php" method="get">
-                                     <input type="text" name="txtSearchPNK" size="18" placeholder = "Search" value = "';
+                                     <input type="text" name="txtSearchPNK" size="18" placeholder = "Trạng thái" value = "';
                                      if(isset($_REQUEST["txtSearchPNK"])) echo $_REQUEST["txtSearchPNK"];
                                      echo '" >
-                                     <input type="submit" name="btnSearchPNK" class="btnCus" value="Search"> 
+                                     <input type="submit" name="btnSearchPNK" class="btnCus btnCus5" value="Tìm"> 
                             </form>
                         </div>
     
@@ -66,18 +65,15 @@
                         <table class="table table-bordered table-hover " id="myTable">
                         <thead class="table-secondary">
                                 <tr class="ex">
-                                <th width="auto">Mã Phiếu Nhập Kho</th>
-                                <th width="auto">Trạng Thái Phiếu Nhập Kho</th>
+                                <th width="auto">Mã</th>
+                                <th width="auto">Trạng Thái</th>
                                 <th>Ngày Lập Phiếu Nhập Kho</th>
-                                <th>Mã Nhân Viên Kho</th>
-                                <th>Họ Tên</th>
-                                <th>Mã Sản Phẩm</th>
+                                <th>Nhân Viên tiếp nhận</th>
                                 <th>Tên Sản Phẩm</th>
                                 <th>Số lượng tồn</th>
                                 <th>Thương hiệu</th>
                                 <th>Loại sản phẩm</th>
                                 <th>Tên Nhà Cung Cấp</th>
-                                <th>Tên loại</th>
                                 <th>Tính Năng</th>
                             </tr>
                         </thead>
@@ -88,15 +84,12 @@
                                     echo "<td>"."MP". $row['MaPhieuNhapKho'] ."</td>";
                                     echo "<td>". $row['TrangThaiPhieuNhapKho'] ."</td>";
                                     echo "<td>". $row['NgayLapPhieuNhapKho'] ."</td>"; 
-                                    echo "<td>"."NV". $row['MaNhanVien'] ."</td>"; 
                                     echo "<td>". $row['HoTen'] ."</td>";   
-                                    echo "<td>"."SP". $row['MaSanPham'] ."</td>"; 
                                     echo "<td>". $row['TenSanPham'] ."</td>";
                                     echo "<td>". $row['SoLuongTon'] ."</td>";
                                     echo "<td>". $row['ThuongHieu'] ."</td>";
                                     echo "<td>"."L". $row['LoaiSanPham'] ."</td>";
                                     echo "<td>". $row['TenNhaCungCap'] ."</td>";
-                                    echo "<td>". $row['TenLoai'] ."</td>"; 
                                 echo "<td>
                                         <form action='#' method='get'>
                                         <input type='hidden' name='MaPhieuNhapKho' value='" . $row["MaPhieuNhapKho"] . "'>
@@ -123,4 +116,3 @@
         }
         }
     ?>
- 

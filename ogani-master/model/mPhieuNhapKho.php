@@ -5,12 +5,11 @@
             // $con;
             $p = new KetNoiDB();
             if ($p ->moketnoi($con)) {
-                $query="SELECT pnk.MaPhieuNhapKho, pnk.TrangThaiPhieuNhapKho, pnk.PhieuShow, pnk.NgayLapPhieuNhapKho, nvk.MaNhanVien, nvk.HoTen, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.ThuongHieu, sp.LoaiSanPham, lsp.TenLoai, ncc.TenNhaCungCap
+                $query="SELECT pnk.MaPhieuNhapKho, pnk.TrangThaiPhieuNhapKho, pnk.PhieuShow, pnk.NgayLapPhieuNhapKho, nvk.MaNhanVien, nvk.HoTen, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.ThuongHieu, sp.LoaiSanPham, ncc.TenNhaCungCap
                 FROM phieunhapkho pnk
                 INNER JOIN nhanvien nvk ON nvk.MaNhanVien = pnk.MaNhanVien 
                 INNER JOIN sanpham sp ON sp.MaSanPham = pnk.MaSanPham
-                INNER JOIN loaisanpham lsp ON lsp.MaLoai = sp.LoaiSanPham
-                INNER JOIN nhacungcap ncc ON ncc.MaNhaCungCap = sp.MaSanPham";
+                INNER JOIN nhacungcap ncc ON ncc.MaNhaCungCap = sp.NhaCungCap";
                 $tbl=mysqli_query($con,$query);
                 $p->dongketnoi($con);
                 return $tbl;
@@ -23,12 +22,11 @@
             // $con;
             $p=new KetNoiDB();
             if ($p->moKetNoi($con)) {
-                $string = "SELECT pnk.MaPhieuNhapKho, pnk.TrangThaiPhieuNhapKho, pnk.PhieuShow, pnk.NgayLapPhieuNhapKho, nvk.MaNhanVien, nvk.HoTen, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.ThuongHieu, sp.LoaiSanPham, lsp.TenLoai, ncc.TenNhaCungCap
+                $string = "SELECT pnk.MaPhieuNhapKho, pnk.TrangThaiPhieuNhapKho, pnk.PhieuShow, pnk.NgayLapPhieuNhapKho, nvk.MaNhanVien, nvk.HoTen, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.ThuongHieu, sp.LoaiSanPham, ncc.TenNhaCungCap
                 FROM phieunhapkho pnk
                 INNER JOIN nhanvien nvk ON nvk.MaNhanVien = pnk.MaNhanVien
                 INNER JOIN sanpham sp ON sp.MaSanPham = pnk.MaSanPham
-                INNER JOIN loaisanpham lsp ON lsp.MaLoai = sp.LoaiSanPham
-                INNER JOIN nhacungcap ncc ON ncc.MaNhaCungCap = sp.MaSanPham
+                INNER JOIN nhacungcap ncc ON ncc.MaNhaCungCap = sp.NhaCungCap
                 where TrangThaiPhieuNhapKho like N'%".$search."%' order by MaPhieuNhapKho Desc";
                 $table=mysqli_query($con,$string);
                 $p->dongketnoi($con);

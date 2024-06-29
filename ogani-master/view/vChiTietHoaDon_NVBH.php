@@ -28,10 +28,10 @@
                 <div class="row timKiem-them">
                     <div class="timKiem input-group mb-3 col-md-5">
                         <form action="indexNVBH.php" method="get">
-                                 <input type="text" name="txtSearchHD" size="18" placeholder = "Search" value = "';
+                                 <input type="text" name="txtSearchHD" size="18" placeholder = "Mã hóa đơn" value = "';
                                  if(isset($_REQUEST["txtSearchHD"])) echo $_REQUEST["txtSearchHD"];
                                  echo '" >
-                                 <input type="submit" name="btnSearchHD" class="btnCus" value="Search"> 
+                                 <input type="submit" name="btnSearchHD" class="btnCus btnCus5" value="Tìm"> 
                         </form>
                     </div>
 
@@ -88,6 +88,3 @@
     }
 
 ?>
-
-
-

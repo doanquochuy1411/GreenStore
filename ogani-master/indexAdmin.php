@@ -117,7 +117,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
             } elseif (isset($_REQUEST['khach-hang'])) {
                 $d->viewAllCustomers();
             } elseif (isset($_REQUEST['btnSearchNV'])) {
-                $p->viewAllEmployeeBySearch($_REQUEST['txtSearchNV']);
+                $search = $c -> test_input($_REQUEST['txtSearchNV']);
+                $p->viewAllEmployeeBySearch($search);
             } elseif (isset($_REQUEST['btnSearchSP'])) {
                 $search = $c -> test_input($_REQUEST['txtSearchSP']);
                 // $search = $_REQUEST['txtSearchSP'];

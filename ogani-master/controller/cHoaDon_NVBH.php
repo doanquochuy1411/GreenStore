@@ -8,7 +8,11 @@
             return $tbl;
         }
 
-        
+        function getHoaDonBySearch($search){
+            $p = new mHoaDon();
+            $tbl = $p -> selectHoaDonBySearch($search);
+            return $tbl;
+        }
     
         //function addOrder($ngayLap, $tongTien) {
         function addOrder($ngayLap, $tongTien, $ngayLapChiTietHoaDon, $maSanPham, $soLuong, $diaChiGiaoHang, $hoTen, $soDienThoai, $email) {

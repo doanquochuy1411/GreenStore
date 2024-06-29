@@ -92,10 +92,23 @@ if (isset($_REQUEST['adminButton'])) {
         <br>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="indexQLKH.php?kiem-ke-kho">KIỂM KÊ KHO</a>
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['kiem-ke-kho']) ? "active" : ""; ?>"
+                    href="indexQLKH.php?kiem-ke-kho">KIỂM KÊ KHO</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['san-pham']) ? "active" : ""; ?>"
+                    href="indexQLKH.php?san-pham">SẢN PHẨM</a>
+            </li>
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['phieu-nhap-kho']) ? "active" : ""; ?>"
+                    href="indexQLKH.php?phieu-nhap-kho">KIỂM KÊ KHO</a>
+            </li>
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['phieu-xuat-kho']) ? "active" : ""; ?>"
+                    href="indexQLKH.php?phieu-xuat-kho">KIỂM KÊ KHO</a>
+            </li>
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="indexQLKH.php?san-pham">CẬP NHẬT THÔNG TIN</a>
             </li>
             <li class="nav-item">
@@ -103,7 +116,7 @@ if (isset($_REQUEST['adminButton'])) {
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="indexQLKH.php?phieu-xuat-kho">PHIẾU XUẤT KHO</a>
-            </li>
+            </li> -->
         </ul>
 
         <!-- Tab panes -->
@@ -122,6 +135,9 @@ if (isset($_REQUEST['adminButton'])) {
             include_once("view/vPhieuXuatKho.php");
             $e = new VPhieuXuatKho();
 
+            include_once("Secured/checkInput.php");
+            $v = new secured();
+
             if (isset($_REQUEST['kiem-ke-kho'])) {
                 $p->viewAllPhieuKiemTraKho();
             } elseif (isset($_REQUEST['san-pham'])) {
@@ -131,16 +147,20 @@ if (isset($_REQUEST['adminButton'])) {
             } elseif (isset($_REQUEST['phieu-xuat-kho'])) {
                 $e->viewAllPhieuXuatKho();
             } elseif (isset($_REQUEST['btnSearchPKTK'])) {
-                $p->viewAllPhieuKiemTraKhoBySearch($_REQUEST['txtSearchPKTK']);
+                $search = $v -> test_input($_REQUEST['txtSearchPKTK']);
+                $p->viewAllPhieuKiemTraKhoBySearch($search);
             } elseif (isset($_REQUEST['btnSearchSP'])) {
-                $c->viewAllProductBySearch($_REQUEST['txtSearchSP']);
+                $search = $v -> test_input($_REQUEST['txtSearchSP']);
+                $c->viewAllProductBySearch($search);
             } elseif (isset($_REQUEST['btnSearchPNK'])) {
-                $d->viewAllPhieuNhapKhoBySearch($_REQUEST['txtSearchPNK']);
+                $search = $v -> test_input($_REQUEST['txtSearchPNK']);
+                $d->viewAllPhieuNhapKhoBySearch($search);
             } elseif (isset($_REQUEST['btnSearchPXK'])) {
-                $e->viewAllPhieuXuatKhoBySearch($_REQUEST['txtSearchPXK']);
+                $search = $v -> test_input($_REQUEST['txtSearchPXK']);
+                $e->viewAllPhieuXuatKhoBySearch($search);
                 // } elseif (isset($_REQUEST["btnSubmitActionPhieuKiemTraKho"])) {
                 //     $p->showFormDelPhieuKiemTraKho();
-                //     $p -> showFormEditPhieuKiemTraKho();
+                //     $p -> showFormEditPhieuKiemTraKho(); 
             } elseif (isset($_REQUEST["btnSubmitActionPhieuXuatKho"])) {
                 $e->showFormDelPhieuXuatKho();
                 $e->showFormEditPhieuXuatKho();
@@ -170,10 +190,10 @@ if (isset($_REQUEST['adminButton'])) {
                 $result = $p->addPhieuKiemTraKho($NgayKiemTra, $TrangThaiKiemTra, $MaNhanVien, $MaSanPham);
 
                 if ($result == 1) {
-                    echo "<script>alert('Add phieu kiem tra kho successfully!')</script>";
+                    echo "<script>alert('Thêm phieu kiem tra kho thành công!')</script>";
                     //echo header("refresh: 0; url = 'index.php?kiem-ke-kho'");
                 } elseif ($result == 0) {
-                    echo "<script>alert('Add phieu kiem tra kho unsuccessfully!')</script>";
+                    echo "<script>alert('Thêm phieu kiem tra kho không thành công!')</script>";
                 }
             }
             //thêm sản phẩm
@@ -299,7 +319,7 @@ if (isset($_REQUEST['adminButton'])) {
 
 
 
-    <!-- Modal Them san pham -->
+    <!-- Model Them san pham -->
     <div class="modal fade" id="modalThemSP" tabindex="-1" aria-labelledby="modalThemSPLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -329,13 +349,6 @@ if (isset($_REQUEST['adminButton'])) {
                         </div>
 
                         <div class="form-group">
-                            <label for="">Giá bán</label>
-                            <input type="number" name="giaBan" id="giaBan" class="form-control"
-                                aria-describedby="giaBan-messs">
-                            <small id="giaBan-mess"></small>
-                        </div>
-
-                        <div class="form-group">
                             <label for="">Giá nhập</label>
                             <input type="number" name="giaNhap" id="giaNhap" class="form-control"
                                 aria-describedby="giaNhap-messs">
@@ -343,10 +356,20 @@ if (isset($_REQUEST['adminButton'])) {
                         </div>
 
                         <div class="form-group">
+                            <label for="">Giá bán</label>
+                            <input type="number" name="giaBan" id="giaBan" class="form-control"
+                                aria-describedby="giaBan-messs">
+                            <small id="giaBan-mess"></small>
+                        </div>
+
+                        <div class="form-group">
                             <label for="">Thương hiệu</label>
-                            <input type="text" name="thuongHieu" id="thuongHieu" class="form-control"
+                            <!-- <input type="text" name="thuongHieu" id="thuongHieu" class="form-control"
                                 aria-describedby="thuongHieu-messs">
-                            <small id="thuongHieu-mess"></small>
+                            <small id="thuongHieu-mess"></small> -->
+                            <select name="thuongHieu" id="thuongHieu" class="form-control">
+
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -357,38 +380,25 @@ if (isset($_REQUEST['adminButton'])) {
 
                         <div class="form-group">
                             <label for="">Hạn sử dụng</label>
-                            <input type="date" name="HSD" id="HSD" class="form-control" aria-describedby="HSD-messs"
-                                value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="HSD" id="HSD" class="form-control" aria-describedby="HSD-messs">
                             <small id="HSD-mess"></small>
                         </div>
 
                         <div class="form-group">
                             <label for="">Loại sản phẩm</label>
-                            <!-- <select name="ChucVu" id="ChucVu" class="form-control">
-                                        <option value="1">Nhân viên bán hàng</option>
-                                        <option value="2">Nhân viên kho</option>
-                                    </select>
-                                    <small id="DiaChi-mess"></small> -->
-                            <?php
-                            include_once("Controller/cLoaiSanPham.php");
-                            $cloai = new CLoaiSP();
-                            $tbl = $cloai->getAllLoaiSP();
+                            <!-- <input type="text" name="LoaiSP" id="LoaiSP" class="form-control"
+                                aria-describedby="LSP-messs">
+                            <small id="LSP-mess"></small> -->
+                            <select name="loaiSP" id="loaiSP" class="form-control">
 
-                            if (mysqli_num_rows($tbl) > 0) {
-                                echo '<select name="LoaiSP" class="form-control">';
-                                while ($r = mysqli_fetch_assoc($tbl)) {
-                                    echo '<option value="' . $r["MaLoai"] . '">' . $r["TenLoai"] . '</option>';
-                                }
-                                echo '</select>';
-                            }
-                            ?>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="">Nhà cung cấp</label>
                             <?php
-                            include_once("Controller/cNhaCC.php");
-                            $ce = new CNhaCC();
+                            include_once("Controller/cNhaCCAdmin.php");
+                            $ce = new CNhaCCAdmin();
                             $tbl = $ce->getAllNCC();
 
                             if (mysqli_num_rows($tbl) > 0) {
@@ -405,6 +415,7 @@ if (isset($_REQUEST['adminButton'])) {
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" name="btnAddProd" class="btn btn-success">Lưu</button>
+                        <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
                     </div>
                 </form>
             </div>
@@ -538,6 +549,7 @@ if (isset($_REQUEST['adminButton'])) {
         return confirm("Bạn có chắc chắn muốn xóa không?");
     }
     </script>
+
 
     <script>
     function validateFormKiemTraKho() {
@@ -753,6 +765,34 @@ if (isset($_REQUEST['adminButton'])) {
     }
     </script>
 
+    <script>
+    // Mảng chứa các tùy chọn cho select box
+    var optionsArray = ["Nhóm rau xanh", "Nhóm hạt", "Trái cây", "Nhóm bông", "Nhóm củ"];
+
+    // Lấy đối tượng select box từ DOM
+    var selectBox = document.getElementById("loaiSP");
+
+    // Duyệt qua mảng và thêm các option vào select box
+    optionsArray.forEach(function(optionText) {
+        var option = document.createElement("option");
+        option.text = optionText;
+        option.value = optionText; // Gán giá trị của option là nội dung của nó
+        selectBox.add(option);
+    });
+    </script>
+
+    <script>
+    var optionsArrayThuongHieu = ["Dalatvet", "CanThofood", "HCMfood", "ChinaFood", "DakFood", "STFood", "MyFood",
+        "GLFood", "HYFood", "PY", "HLFood", "HNFood", "TGFood", "FLFood"
+    ];
+    var selectBoxThuonghieu = document.getElementById("thuongHieu");
+    optionsArrayThuongHieu.forEach(function(optionText) {
+        var option = document.createElement("option");
+        option.text = optionText;
+        option.value = optionText; // Gán giá trị của option là nội dung của nó
+        selectBoxThuonghieu.add(option);
+    });
+    </script>
 </body>
 
 </html>

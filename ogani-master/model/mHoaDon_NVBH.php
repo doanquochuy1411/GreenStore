@@ -4,13 +4,51 @@ include_once("connect.php");
 class MHoaDon {
     function selectAllHoaDon() {
         $p = new ConnectDB();
-        $con = null;
+        $con = $p->connect_DB($con);
 
-        if ($p->connect_DB($con)) {
+        if ($con) {
+            // $stmt = $con->prepare("SELECT * FROM hoadon");
+            // $stmt->execute();
+            // $result = $stmt->get_result();
+            // $data = $result->fetch_all(MYSQLI_ASSOC);
+            // if (count($data) > 0){
+            //     $p -> closeDB($con);
+            //     // print_r($data);
+            //     return $data;
+            // }
+            // return 0;
+            // $p->closeDB($con);
+            // return $data;
+
             $str = "SELECT * FROM hoadon";
             $tbl = mysqli_query($con, $str);
             $p->closeDB($con);
             return $tbl;
+        } else {
+            return false;
+        }
+    }
+
+    function selectHoaDonBySearch($search) {
+        $p = new ConnectDB();
+        $con = $p->connect_DB($con);
+        $search = addslashes($search);
+
+        if ($con) {
+            $stmt = $con->prepare("SELECT * FROM hoadon WHERE MaHoaDon LIKE ?");
+            $stmt->execute(["%{$search}%"]);
+            $result = $stmt->get_result();
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+            if (count($data) > 0){
+                $p -> closeDB($con);
+                // print_r($data);
+                return $data;
+            }
+            return 0;
+            // $str = "SELECT * FROM hoadon where MaHoaDon like '%$search%'";
+            // $tbl = mysqli_query($con, $str);
+            // $p->closeDB($con);
+            // return $tbl;
         } else {
             return false;
         }

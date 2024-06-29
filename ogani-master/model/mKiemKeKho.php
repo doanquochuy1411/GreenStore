@@ -6,13 +6,13 @@ class modelPhieuKiemTraKho{
         $con;
         $p=new KetNoiDB();
         if ($p->moKetNoi($con)) {
-            $string = "SELECT pktk.MaPhieuKiemTraKho,pktk.TrangThaiKiemTra, pktk.PhieuShow, nvk.MaNhanVien, nvk.HoTen,nvk.LoaiNhanVien, pktk.NgayKiemTra, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.GiaBan, sp.GiaNhap, sp.ThuongHieu, sp.HanSuDung, sp.LoaiSanPham, lsp.TenLoai,
+            $string = "SELECT pktk.MaPhieuKiemTraKho,pktk.TrangThaiKiemTra, pktk.PhieuShow, nvk.MaNhanVien, nvk.HoTen,nvk.LoaiNhanVien, pktk.NgayKiemTra, sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.GiaBan, sp.GiaNhap, sp.ThuongHieu, sp.HanSuDung, sp.LoaiSanPham,
             lnv.MaLoaiNhanVien,lnv.TenLoaiNhanVien,nvk.LoaiNhanVien
             FROM phieukiemtrakho pktk
             INNER JOIN nhanvien nvk ON nvk.MaNhanVien = pktk.MaNhanVien
             INNER JOIN loainhanvien lnv ON lnv.MaLoaiNhanVien = nvk.LoaiNhanVien
             INNER JOIN sanpham sp ON sp.MaSanPham = pktk.MaSanPham
-            INNER JOIN loaisanpham lsp ON lsp.MaLoai = sp.LoaiSanPham where TrangThaiKiemTra like N'%".$search."%' order by MaPhieuKiemTraKho Desc";
+            where TrangThaiKiemTra like N'%".$search."%' order by MaPhieuKiemTraKho Desc";
             $table=mysqli_query($con,$string);
             $p->dongketnoi($con);
             return $table;
@@ -30,12 +30,11 @@ class modelPhieuKiemTraKho{
         if ($p->moKetNoi($con)) {
             $string = "SELECT pktk.MaPhieuKiemTraKho,pktk.TrangThaiKiemTra, pktk.PhieuShow, 
             nvk.MaNhanVien, nvk.HoTen, pktk.NgayKiemTra,lnv.MaLoaiNhanVien,lnv.TenLoaiNhanVien,nvk.LoaiNhanVien,
-            sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.GiaBan, sp.GiaNhap, sp.ThuongHieu, sp.HanSuDung, sp.LoaiSanPham, lsp.TenLoai
+            sp.MaSanPham, sp.TenSanPham, sp.SoLuongTon, sp.GiaBan, sp.GiaNhap, sp.ThuongHieu, sp.HanSuDung, sp.LoaiSanPham
             FROM phieukiemtrakho pktk
             INNER JOIN nhanvien nvk ON nvk.MaNhanVien = pktk.MaNhanVien
             INNER JOIN loainhanvien lnv ON lnv.MaLoaiNhanVien = nvk.LoaiNhanVien
             INNER JOIN sanpham sp ON sp.MaSanPham = pktk.MaSanPham
-            INNER JOIN loaisanpham lsp ON lsp.MaLoai = sp.LoaiSanPham
             ";
             $table = mysqli_query($con,$string);
             $p->dongKetNoi($con);
@@ -51,7 +50,7 @@ class modelPhieuKiemTraKho{
         // $con;
         $p = new KetNoiDB();
         if($p -> moKetNoi($con)){
-            $string ="INSERT INTO `mypham`.`phieukiemtrakho` (
+            $string ="INSERT INTO `raucu`.`phieukiemtrakho` (
                 `NgayKiemTra` ,
                 `TrangThaiKiemTra` ,
                 `MaNhanVien` ,

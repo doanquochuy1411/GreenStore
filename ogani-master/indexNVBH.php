@@ -52,9 +52,6 @@ if (isset($_REQUEST['adminButton'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-
-    </style>
 
 </head>
 
@@ -89,7 +86,22 @@ if (isset($_REQUEST['adminButton'])) {
         <br>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['don-hang']) ? "active" : ""; ?>"
+                    href="indexNVBH.php?don-hang">ĐƠN
+                    HÀNG</a>
+            </li>
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['san-pham']) ? "active" : ""; ?>"
+                    href="indexNVBH.php?san-pham">SẢN
+                    PHẨM</a>
+            </li>
+            <li class="nav-item menu">
+                <a class="nav-link <?php echo isset($_REQUEST['hoa-don']) ? "active" : ""; ?>"
+                    href="indexNVBH.php?hoa-don">CHI
+                    TIẾT HÓA ĐƠN</a>
+            </li>
+            <!-- <li class="nav-item">
                 <a class="nav-link active" href="indexNVBH.php">TRANG NHÂN VIÊN</a>
             </li>
             <li class="nav-item">
@@ -98,19 +110,20 @@ if (isset($_REQUEST['adminButton'])) {
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="indexNVBH.php?hoa-don">CHI TIẾT HÓA ĐƠN</a>
-            </li>
-
-
+            </li> -->
         </ul>
 
 
         <?php
         if (!isset($_SESSION['MaNhanVien'])) {
-            header('location: /admin/login.php');
+            header('location: /admin');
             exit();
         }
         include_once("view/vSP_NVBH.php");
         $c = new VProduct();
+
+        include_once("Secured/checkInput.php");
+        $v = new secured();
 
         //include_once('View/vChiTietHoaDon_NVBH.php');
         //$c = new VCTHoaDon();
@@ -128,9 +141,11 @@ if (isset($_REQUEST['adminButton'])) {
         } elseif (isset($_REQUEST['btnSearchHD'])) {
             include_once('View/vChiTietHoaDon_NVBH.php');
             $c = new VCTHoaDon();
-            $c->viewAllCTHoaDonBySearch($_REQUEST['txtSearchHD']);
+            $search = $v -> test_input($_REQUEST['txtSearchHD']);
+            $c->viewAllCTHoaDonBySearch($search);
         } elseif (isset($_REQUEST['btnSearchSP'])) {
-            $c->viewAllProductBySearch($_REQUEST['txtSearchSP']);
+            $search = $v -> test_input($_REQUEST['txtSearchSP']);
+            $c->viewAllProductBySearch($search);
         } else {
             include_once('View/vOverNv_NVBH.php');
         }
@@ -139,5 +154,8 @@ if (isset($_REQUEST['adminButton'])) {
     </div>
 
 </body>
+<script src="./js/mainAdmin.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+
 
 </html>

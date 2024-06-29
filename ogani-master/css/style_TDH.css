@@ -1,0 +1,99 @@
+/* CSS cho cả giao diện tạo đơn hàng*/
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    width: 85%;
+    margin:auto;
+}
+
+header {
+    background-color: #005000; /* Màu xanh lá cây đậm cho header */
+    color: #fff; /* Màu chữ trắng trong header */
+    padding: 10px;
+    width: 85%;
+    position: fixed;
+}
+
+.header-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header-menu li {
+    display: inline;
+    margin-right: 15px;
+}
+
+#product-list {
+    width: 40%;
+    background: #C8E6C9; /* Màu xanh lá cây */
+    padding: 20px;
+    margin-top: 40px; /* Để sản phẩm không bị che phủ bởi header */
+}
+
+#order-form {
+    width: 70%;
+    padding: 20px;
+    margin-top: 40px; /* Để sản phẩm không bị che phủ bởi header */
+}
+
+#order-form input[type="text"],
+#order-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #4CAF50; /* Màu xanh đậm */
+    border-radius: 3px;
+}
+
+#product-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#product-list li {
+    margin: 5px 0;
+}
+
+#order-summary {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#order-products {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #4CAF50; /* Màu xanh đậm */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Tùy chỉnh màu cho checkbox và số lượng sản phẩm */
+.product-checkbox {
+    color: #4CAF50; /* Màu xanh đậm cho checkbox */
+}
+
+.product-quantity {
+    border: 1px solid #4CAF50; /* Màu xanh đậm cho số lượng */
+}
+
+/* Tùy chỉnh màu cho nút tạo đơn hàng */
+button[type="submit"] {
+    background: #4CAF50; /* Màu xanh đậm cho nút */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background: #45a049; /* Màu xanh nhạt khi di chuột */
+}
+
+a{
+    text-decoration: none;
+}

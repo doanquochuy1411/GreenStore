@@ -1,4 +1,3 @@
-
 <?php
     include_once("controller/cPhieuXuatKho.php");
     class VPhieuXuatKho{
@@ -43,10 +42,10 @@
                     <div class="row timKiem-them">
                         <div class="timKiem input-group mb-3 col-md-5">
                             <form action="indexQLKH.php" method="get">
-                                     <input type="text" name="txtSearchPXK" size="18" placeholder = "Search" value = "';
+                                     <input type="text" name="txtSearchPXK" size="18" placeholder = "Trạng thái" value = "';
                                      if(isset($_REQUEST["txtSearchPXK"])) echo $_REQUEST["txtSearchPXK"];
                                      echo '" >
-                                     <input type="submit" name="btnSearchPXK" class="btnCus" value="Search"> 
+                                     <input type="submit" name="btnSearchPXK" class="btnCus btnCus5" value="Tìm"> 
                             </form>
                         </div>
     
@@ -66,17 +65,14 @@
                         <table class="table table-bordered table-hover " id="myTable">
                         <thead class="table-secondary">
                                 <tr class="ex">
-                                <th width="auto">Mã Phiếu Xuất Kho</th>
-                                <th width="auto">Trạng Thái Phiếu Xuất Kho</th>
+                                <th width="auto">Mã</th>
+                                <th width="auto">Trạng Thái</th>
                                 <th>Ngày Lập Phiếu Xuất Kho</th>
-                                <th>Mã Nhân Viên Kho</th>
-                                <th>Họ Tên</th>
-                                <th>Mã Sản Phẩm</th>
+                                <th>Nhân viên xử lý</th>
                                 <th>Tên Sản Phẩm</th>
-                                <th>Số lượng tồn</th>
+                                <th>Số lượng</th>
                                 <th>Thương hiệu</th>
                                 <th>Loại sản phẩm</th>
-                                <th>Tên loại</th>
                                 <th>Tính Năng</th>
                             </tr>
                         </thead>
@@ -87,14 +83,11 @@
                                     echo "<td>"."MP". $row['MaPhieuXuatKho'] ."</td>";
                                     echo "<td>". $row['TrangThaiPhieuXuatKho'] ."</td>";
                                     echo "<td>". $row['NgayLapPhieuXuatKho'] ."</td>"; 
-                                    echo "<td>"."NV". $row['MaNhanVien'] ."</td>";
                                     echo "<td>". $row['HoTen'] ."</td>";  
-                                    echo "<td>"."SP". $row['MaSanPham'] ."</td>"; 
                                     echo "<td>". $row['TenSanPham'] ."</td>";
                                     echo "<td>". $row['SoLuongTon'] ."</td>";
                                     echo "<td>". $row['ThuongHieu'] ."</td>";
                                     echo "<td>"."L". $row['LoaiSanPham'] ."</td>";
-                                    echo "<td>". $row['TenLoai'] ."</td>"; 
                                 echo "<td>
                                         <form action='#' method='get'>
                                         <input type='hidden' name='MaPhieuXuatKho' value='" . $row["MaPhieuXuatKho"] . "'>
