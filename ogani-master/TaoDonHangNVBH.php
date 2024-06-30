@@ -90,7 +90,7 @@
 
             <!-- <button type="submit" name="btnAddOrder">Tạo Đơn Hàng</button> -->
             <button type="submit" name="btnAddOrder" onclick="return validateForm()">Tạo Đơn Hàng</button>
-
+            <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
         </form>
     </div>
     <script>

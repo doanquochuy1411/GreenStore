@@ -25,7 +25,7 @@
         function showFormDelPhieuKiemTraKho(){
             $p = new controlPhieuKiemTraKho();
                 if(isset($_REQUEST["btnSubmitActionPhieuKiemTraKho"])){
-                    if ($_REQUEST["btnSubmitActionPhieuKiemTraKho"] == "delete"){
+                    if ($_REQUEST["btnSubmitActionPhieuKiemTraKho"] == "delete" && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])){
                         $result = $p -> getDeletePhieuKiemTraKho($_REQUEST["MaPhieuKiemTraKho"]);
                         echo header("refresh:0; url='indexQLKH.php?kiem-ke-kho'");
                         return $result;

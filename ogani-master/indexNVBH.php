@@ -13,7 +13,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     session_unset();
     session_destroy();
-    header('location: ./admin/login.php');
+    header('location: ./admin');
     exit();
 }
 if (isset($_REQUEST['adminButton'])) {
@@ -153,9 +153,153 @@ if (isset($_REQUEST['adminButton'])) {
 
     </div>
 
+    <!-- Model Them san pham -->
+    <div class="modal fade" id="modalThemSP" tabindex="-1" aria-labelledby="modalThemSPLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÔNG TIN SẢN PHẨM</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="post" enctype="multipart/form-data" onsubmit="return validateFormSP();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Tên sản phẩm</label>
+                            <input type="text" name="tenSP" id="tenSP" class="form-control"
+                                aria-describedby="tenSP-messs">
+                            <small id="tenSP-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Số lượng tồn</label>
+                            <input type="number" name="SLT" id="SLT" class="form-control" aria-describedby="SLT-messs">
+                            <small id="SLT-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Mô tả</label>
+                            <input type="text" name="moTa" id="moTa" class="form-control" aria-describedby="moTa-messs">
+                            <small id="moTa-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Giá nhập</label>
+                            <input type="number" name="giaNhap" id="giaNhap" class="form-control"
+                                aria-describedby="giaNhap-messs">
+                            <small id="giaNhap-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Giá bán</label>
+                            <input type="number" name="giaBan" id="giaBan" class="form-control"
+                                aria-describedby="giaBan-messs">
+                            <small id="giaBan-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Thương hiệu</label>
+                            <!-- <input type="text" name="thuongHieu" id="thuongHieu" class="form-control"
+                                aria-describedby="thuongHieu-messs">
+                            <small id="thuongHieu-mess"></small> -->
+                            <select name="thuongHieu" id="thuongHieu" class="form-control">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Hình ảnh</label>
+                            <input type="file" name="fileAnh" class="form-control">
+                            <small id="hinhAnh-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Hạn sử dụng</label>
+                            <input type="date" name="HSD" id="HSD" class="form-control" aria-describedby="HSD-messs">
+                            <small id="HSD-mess"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Loại sản phẩm</label>
+                            <!-- <input type="text" name="LoaiSP" id="LoaiSP" class="form-control"
+                                aria-describedby="LSP-messs">
+                            <small id="LSP-mess"></small> -->
+                            <select name="loaiSP" id="loaiSP" class="form-control">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Nhà cung cấp</label>
+                            <?php
+                            include_once("Controller/cNhaCCAdmin.php");
+                            $ce = new CNhaCCAdmin();
+                            $tbl = $ce->getAllNCC();
+
+                            if (mysqli_num_rows($tbl) > 0) {
+                                echo '<select name="nhaCC" class="form-control">';
+                                while ($r = mysqli_fetch_assoc($tbl)) {
+                                    echo '<option value="' . $r["MaNhaCungCap"] . '">' . $r["TenNhaCungCap"] . '</option>';
+                                }
+                                echo '</select>';
+                            }
+                            ?>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                        <button type="submit" name="btnAddProd" class="btn btn-success">Lưu</button>
+                        <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script src="./js/mainAdmin.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+<script>
+function confirmDelete() {
+    return confirm("Bạn có chắc chắn muốn xóa không?");
+}
+</script>
+<script src="./js/mainAdmin.js"></script>
+<script>
+var tenSPinPut = document.getElementById("tenSP").value;
+var moTainPut = document.getElementById("moTa").value;
+var tenSP = DOMPurify.sanitize(tenSPinPut);
+var moTa = DOMPurify.sanitize(moTainPut);
+</script>
 
+<script>
+// Mảng chứa các tùy chọn cho select box
+var optionsArray = ["Nhóm rau xanh", "Nhóm hạt", "Trái cây", "Nhóm bông", "Nhóm củ"];
+
+// Lấy đối tượng select box từ DOM
+var selectBox = document.getElementById("loaiSP");
+
+// Duyệt qua mảng và thêm các option vào select box
+optionsArray.forEach(function(optionText) {
+    var option = document.createElement("option");
+    option.text = optionText;
+    option.value = optionText; // Gán giá trị của option là nội dung của nó
+    selectBox.add(option);
+});
+</script>
+
+<script>
+var optionsArrayThuongHieu = ["Dalatvet", "CanThofood", "HCMfood", "ChinaFood", "DakFood", "STFood", "MyFood",
+    "GLFood", "HYFood", "PY", "HLFood", "HNFood", "TGFood", "FLFood"
+];
+var selectBoxThuonghieu = document.getElementById("thuongHieu");
+optionsArrayThuongHieu.forEach(function(optionText) {
+    var option = document.createElement("option");
+    option.text = optionText;
+    option.value = optionText; // Gán giá trị của option là nội dung của nó
+    selectBoxThuonghieu.add(option);
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
 
 </html>

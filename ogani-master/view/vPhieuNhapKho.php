@@ -25,7 +25,7 @@
         function showFormDelPhieuNhapKho(){
             $p = new controlPhieuNhapKho();
                 if(isset($_REQUEST["btnSubmitActionPhieuNhapKho"])){
-                    if ($_REQUEST["btnSubmitActionPhieuNhapKho"] == "delete"){
+                    if ($_REQUEST["btnSubmitActionPhieuNhapKho"] == "delete" && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])){
                         $result = $p -> getDeletePhieuNhapKho($_REQUEST["MaPhieuNhapKho"]);
                         echo header("refresh:0; url='indexQLKH.php?phieu-nhap-kho'");
                         return $result;
@@ -103,6 +103,7 @@
                                         <button class='btnCus btn2 delete' type='submit' value='delete' name= 'btnSubmitActionPhieuNhapKho'>
                                             <i class='fa fa-trash-o' aria-hidden='true'></i>
                                         </button>
+                                        <input type='hidden' name='_token' value='".$_SESSION['_token']."'></input>
                                         </form>
                                     </td>";
                                 echo "</tr>";

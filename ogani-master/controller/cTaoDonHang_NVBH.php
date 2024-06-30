@@ -1,6 +1,6 @@
 <?php
 include_once("Model/mTaoDonHang_NVBH.php");
-
+include_one("Secured/checkInput.php");
 
 class CPay
 {
@@ -21,16 +21,16 @@ class CPay
 
     function handlePay()
     {
-        if (isset($_REQUEST['btnAddOrder'])) {
-            $HoTen = $_REQUEST['customer-name']; // 
-            $SoDienThoai = $_REQUEST['customer-phone']; // 
-            $Email = $_REQUEST['customer-email']; // 
-            $DiaChi = $_REQUEST['customer-diachi']; //
+        if (isset($_REQUEST['btnAddOrder']) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
+            $HoTen = $v -> test_input($_REQUEST['customer-name']); // 
+            $SoDienThoai = $v -> test_input($_REQUEST['customer-phone']); // 
+            $Email = $v -> test_input($_REQUEST['customer-email']); // 
+            $DiaChi = $v -> test_input($_REQUEST['customer-diachi']); //
             $maNhanVien = $_SESSION['MaNhanVien']; // cho tạm là 1 sau này nhân viên sẽ là online 
-            $tongTienDonHang = $_REQUEST["tongtien"]; // 
-            $tongTien = $_REQUEST['tongtien']; // mảng 
-            $maSanPham = $_REQUEST['selected-products']; // mảng 
-            $soLuong = $_REQUEST['selected-quantity']; // mảng 
+            $tongTienDonHang = $v -> test_input($_REQUEST["tongtien"]); // 
+            $tongTien = $v -> test_input($_REQUEST['tongtien']); // mảng 
+            $maSanPham = $v -> test_input($_REQUEST['selected-products']); // mảng 
+            $soLuong = $v -> test_input($_REQUEST['selected-quantity']); // mảng 
             $idOrder = false;
 
             $checkQuantityInStock = true; //

@@ -60,7 +60,8 @@
 <body>
 
     <?php
-    // include_one("Controller/acEmployee.php");
+    include_one("Secured/checkInput.php");
+    $v = new secured();
     $p = new controlPhieuKiemTraKho();
     $tblEdit = $p->getPhieuKiemTraKhoToEdit($_REQUEST["MaPhieuKiemTraKho"]);
 
@@ -74,12 +75,12 @@
         }
     }
 
-    if (isset($_REQUEST["btnEdit"])) {
-            $MaPhieuKiemTraKho = $_REQUEST["MaPhieuKiemTraKho"];
-            $NgayKiemTra = $_REQUEST["NKT"];
-            $TrangThaiKiemTra = $_REQUEST["TTKT"];
-            $MaNhanVien = $_REQUEST["MNV"];
-            $MaSanPham = $_REQUEST["MSP"];
+    if (isset($_REQUEST["btnEdit"]) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
+            $MaPhieuKiemTraKho = $v -> test_input($_REQUEST["MaPhieuKiemTraKho"]);
+            $NgayKiemTra = $v -> test_input($_REQUEST["NKT"]);
+            $TrangThaiKiemTra = $v -> test_input($_REQUEST["TTKT"]);
+            $MaNhanVien = $v -> test_input($_REQUEST["MNV"]);
+            $MaSanPham = $v -> test_input($_REQUEST["MSP"]);
 
         $result = $p->editPhieuKiemTraKho($MaPhieuKiemTraKho, $NgayKiemTra, $TrangThaiKiemTra, $MaNhanVien, $MaSanPham);
 
@@ -95,7 +96,7 @@
     <div>
         <div id="update_info">
             <a href="./indexQLKH.php?kiem-ke-kho"><i class="fas fa-backward"></i></a>
-            <h2>Cập nhật phiếu <?php echo $_REQUEST["MaPhieuKiemTraKho"]; ?></h2>
+            <h2>Cập nhật phiếu kiểm kê <?php echo $_REQUEST["MaPhieuKiemTraKho"]; ?></h2>
         </div>
     </div>
 

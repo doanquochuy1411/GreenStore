@@ -13,7 +13,7 @@ if (!isset($_SESSION['LoaiNhanVien']) || empty($_SESSION['LoaiNhanVien'])) {
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     session_unset();
     session_destroy();
-    header('location: ./admin/login.php');
+    header('location: ./admin');
     exit();
 }
 
@@ -102,11 +102,11 @@ if (isset($_REQUEST['adminButton'])) {
             </li>
             <li class="nav-item menu">
                 <a class="nav-link <?php echo isset($_REQUEST['phieu-nhap-kho']) ? "active" : ""; ?>"
-                    href="indexQLKH.php?phieu-nhap-kho">KIỂM KÊ KHO</a>
+                    href="indexQLKH.php?phieu-nhap-kho">PHIẾU NHẬP KHO</a>
             </li>
             <li class="nav-item menu">
                 <a class="nav-link <?php echo isset($_REQUEST['phieu-xuat-kho']) ? "active" : ""; ?>"
-                    href="indexQLKH.php?phieu-xuat-kho">KIỂM KÊ KHO</a>
+                    href="indexQLKH.php?phieu-xuat-kho">PHIẾU XUẤT KHO</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link" href="indexQLKH.php?san-pham">CẬP NHẬT THÔNG TIN</a>
@@ -181,11 +181,11 @@ if (isset($_REQUEST['adminButton'])) {
             }
 
             //thêm PKTK
-            if (isset($_REQUEST["btnAddPKTK"])) {
-                $NgayKiemTra = $_REQUEST["NKT"];
-                $TrangThaiKiemTra = $_REQUEST["TTKT"];
-                $MaNhanVien = $_SESSION['MaNhanVien'];
-                $MaSanPham = $_REQUEST["MSPQLK"];
+            if (isset($_REQUEST["btnAddPKTK"]) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
+                $NgayKiemTra = $v -> test_input($_REQUEST["NKT"]);
+                $TrangThaiKiemTra = $v -> test_input($_REQUEST["TTKT"]);
+                $MaNhanVien = (int)$_SESSION['MaNhanVien'];
+                $MaSanPham = (int)$_REQUEST["MSPQLK"];
                 $p = new controlPhieuKiemTraKho();
                 $result = $p->addPhieuKiemTraKho($NgayKiemTra, $TrangThaiKiemTra, $MaNhanVien, $MaSanPham);
 
@@ -197,18 +197,18 @@ if (isset($_REQUEST['adminButton'])) {
                 }
             }
             //thêm sản phẩm
-            if (isset($_REQUEST["btnAddProd"])) {
+            if (isset($_REQUEST["btnAddProd"]) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
 
-                $tenSP = $_REQUEST["tenSP"];
-                $slt = $_REQUEST["SLT"];
-                $moTa = $_REQUEST["moTa"];
-                $giaBan = $_REQUEST["giaBan"];
-                $giaNhap = $_REQUEST["giaNhap"];
-                $thuongHieu = $_REQUEST["thuongHieu"];
+                $tenSP = $v -> test_input($_REQUEST["tenSP"]);
+                $slt = $v -> test_input($_REQUEST["SLT"]);
+                $moTa = $v -> test_input($_REQUEST["moTa"]);
+                $giaBan = $v -> test_input($_REQUEST["giaBan"]);
+                $giaNhap = $v -> test_input($_REQUEST["giaNhap"]);
+                $thuongHieu = $v -> test_input($_REQUEST["thuongHieu"]);
                 $hinhAnh = $_FILES["fileAnh"];
-                $hsd = $_REQUEST["HSD"];
-                $loaiSP = $_REQUEST["LoaiSP"];
-                $nhaCC = $_REQUEST["nhaCC"];
+                $hsd = $v -> test_input($_REQUEST["HSD"]);
+                $loaiSP = $v -> test_input($_REQUEST["LoaiSP"]);
+                $nhaCC = $v -> test_input($_REQUEST["nhaCC"]);
                 $cp = new CProduct();
                 $result = $cp->addProduct($tenSP, $slt, $moTa, $giaBan, $giaNhap, $thuongHieu, $hinhAnh, $hsd, $loaiSP, $nhaCC);
 
@@ -226,11 +226,11 @@ if (isset($_REQUEST['adminButton'])) {
                 }
             }
             //thêm PNK
-            if (isset($_REQUEST["btnAddPNK"])) {
-                $NgayLapPhieuNhapKho = $_REQUEST["NLPNK"];
-                $TrangThaiPhieuNhapKho = $_REQUEST["TTPN"];
+            if (isset($_REQUEST["btnAddPNK"]) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
+                $NgayLapPhieuNhapKho = $v -> test_input($_REQUEST["NLPNK"]);
+                $TrangThaiPhieuNhapKho = $v -> test_input($_REQUEST["TTPN"]);
                 $MaNhanVien = $_SESSION['MaNhanVien'];
-                $MaSanPham = $_REQUEST["MSP"];
+                $MaSanPham = $v -> test_input($_REQUEST["MSP"]);
                 $dp = new controlPhieuNhapKho();
                 $result = $dp->addPhieuNhapKho($NgayLapPhieuNhapKho, $TrangThaiPhieuNhapKho, $MaNhanVien, $MaSanPham);
 
@@ -243,11 +243,11 @@ if (isset($_REQUEST['adminButton'])) {
             }
 
             //thêm PXK
-            if (isset($_REQUEST["btnAddPXK"])) {
-                $NgayLapPhieuXuatKho = $_REQUEST["NLPXK"];
-                $TrangThaiPhieuXuatKho = $_REQUEST["TTPX"];
+            if (isset($_REQUEST["btnAddPXK"]) && isset($_POST['_token']) && ($_POST['_token'] === $_SESSION['_token'])) {
+                $NgayLapPhieuXuatKho = $v -> test_input($_REQUEST["NLPXK"]);
+                $TrangThaiPhieuXuatKho = $v -> test_input($_REQUEST["TTPX"]);
                 $MaNhanVien = $_SESSION['MaNhanVien'];
-                $MaSanPham = $_REQUEST["MSPX"];
+                $MaSanPham = $v -> test_input($_REQUEST["MSPX"]);
                 $ep = new controlPhieuXuatKho();
                 $result = $ep->addPhieuXuatKho($NgayLapPhieuXuatKho, $TrangThaiPhieuXuatKho, $MaNhanVien, $MaSanPham);
 
@@ -309,6 +309,7 @@ if (isset($_REQUEST['adminButton'])) {
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" name="btnAddPKTK" class="btn btn-success">Lưu</button>
+                        <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
                     </div>
                 </form>
 
@@ -471,6 +472,7 @@ if (isset($_REQUEST['adminButton'])) {
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" name="btnAddPNK" class="btn btn-success">Lưu</button>
+                        <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
                     </div>
                 </form>
 
@@ -530,6 +532,7 @@ if (isset($_REQUEST['adminButton'])) {
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                         <button type="submit" name="btnAddPXK" class="btn btn-success">Lưu</button>
+                        <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>"></input>
                     </div>
 
             </div>
